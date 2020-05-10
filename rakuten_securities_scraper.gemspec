@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["fumitake.kawasaki@el-soul.com"]
 
   spec.summary       = "楽天証券スクレイパー / Rakuten Securities Scraper"
-  spec.description   = "楽天証券スクレイパー / Rakuten Securities Scraper"
+  spec.description   = "This gem is providing scraper methods for everyone to be able to make stock trading applications without writing scraper codes."
   spec.homepage      = "https://github.com/elsoul/rakuten_securities"
   spec.required_ruby_version = Gem::Requirement.new(">= 2.7.0")
   spec.license = "MIT"

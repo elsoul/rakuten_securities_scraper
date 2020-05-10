@@ -1,8 +1,7 @@
 # RakutenSecuritiesScraper
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/rakuten_securities_scraper`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Rakuten Securities Scraper / 楽天証券スクレイパー
+This gem is providing scraper methods for everyone to be able to make stock trading applications without writing scraper codes.
 
 ## Installation
 
@@ -22,16 +21,15 @@ Or install it yourself as:
 
 ## Usage
 
-ruby```
+```ruby
     include RakutenSecuritiesScraper
     data = RakutenScraper.new($LOGIN_ID, $LOGIN_PW)
 
-
     ## Get Today's Trade History
-    data.todays_history
+    puts data.todays_history
 
     ## Get All Trade History
-    data.all_history
+    puts data.all_history
 
 ```
 

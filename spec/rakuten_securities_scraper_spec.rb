@@ -13,6 +13,6 @@ RSpec.describe RakutenSecuritiesScraper do
 
   it "Get Today's Trade History" do
     a1 = @a1.todays_history
-    expect(a1).eq to "no data"
+    expect(a1).to eq "no data"
   end
 end

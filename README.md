@@ -1,6 +1,7 @@
 # RakutenSecuritiesScraper
 
 Rakuten Securities Scraper / 楽天証券スクレイパー
+
 This gem is providing scraper methods for everyone to be able to make stock trading applications without writing scraper codes.
 
 ## Installation

@@ -217,3 +217,9 @@ Style/SafeNavigation:
 
 Lint/NumberConversion:
   Enabled: false
+Style/ConstantVisibility:
+  Enabled: false
+Style/MutableConstant:
+  Enabled: false
+Style/Copyright:
+  Enabled: false

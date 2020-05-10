@@ -1,4 +1,5 @@
 require "rakuten_securities_scraper/version"
+require "selenium-webdriver"
 
 module RakutenSecuritiesScraper
   class Error < StandardError; end
@@ -32,6 +33,8 @@ module RakutenSecuritiesScraper
       rows = driver.find_elements(xpath: "//tr")
       page_num = rows[8].text.scan(/(.+)件中/)[0][0].to_i
       trade_table_data driver, page_num
+    ensure
+      driver.quit
     end
 
     def todays_history
@@ -56,6 +59,8 @@ module RakutenSecuritiesScraper
         return "no data"
       end
       trade_table_data driver, page_num
+    ensure
+      driver.quit
     end
 
     def trade_table_data driver, page_num

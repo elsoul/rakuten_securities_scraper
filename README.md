@@ -14,7 +14,7 @@
     <img alt="" src="https://badgen.net/rubygems/dt/rakuten_securities_scraper">
   </a>
   <a aria-label="License" href="https://github.com/elsoul/rakuten_securities_scraper/blob/master/LICENSE">
-    <img alt="" src="https://badgen.net/badge/license/Mit/blue">
+    <img alt="" src="https://badgen.net/badge/license/MIT/blue">
   </a>
 </p>
 

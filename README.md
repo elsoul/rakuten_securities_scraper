@@ -3,7 +3,7 @@
 <p align="center">
 
   <a aria-label="Ruby logo" href="https://el-soul.com">
-    <img src="https://badgen.net/badge/icon/Made%20by%20ELSOUL?icon=ruby&label&color=ruby&labelColor=ruby">
+    <img src="https://badgen.net/badge/icon/Made%20by%20ELSOUL?icon=ruby&label&color=black&labelColor=black">
   </a>
   <br/>
 

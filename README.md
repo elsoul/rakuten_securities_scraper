@@ -1,7 +1,12 @@
 [![RakutenSecuritiesScraper](https://firebasestorage.googleapis.com/v0/b/el-quest.appspot.com/o/mediaLibrary%2F1589293505170_rakuten-shoken.jpg?alt=media&token=f86b6870-fd3f-42aa-805d-db35cb53a9b6)](https://www.rakuten-sec.co.jp/)
 
 <p align="center">
-  
+
+  <a aria-label="Ruby logo" href="https://el-soul.com">
+    <img src="https://badgen.net/badge/icon/Made%20by%20ELSOUL?icon=ruby&label&color=ruby&labelColor=ruby">
+  </a>
+  <br/>
+
   <a aria-label="Ruby Gem version" href="https://rubygems.org/gems/rakuten_securities_scraper">
     <img alt="" src="https://badgen.net/rubygems/v/rakuten_securities_scraper/latest">
   </a>
@@ -9,7 +14,7 @@
     <img alt="" src="https://badgen.net/rubygems/dt/rakuten_securities_scraper">
   </a>
   <a aria-label="License" href="https://github.com/elsoul/rakuten_securities_scraper/blob/master/LICENSE">
-    <img alt="" src="https://badgen.net/github/license/elsoul/rakuten_securities_scraper">
+    <img alt="" src="https://badgen.net/badge/license/Mit/blue">
   </a>
 </p>
 

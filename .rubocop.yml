@@ -171,9 +171,8 @@ Lint/UnusedMethodArgument:
 Metrics/AbcSize:
   Enabled: false
 
-# 6 は強すぎるので緩める
 Metrics/CyclomaticComplexity:
-  Max: 10
+  Enabled: false
 
 Metrics/PerceivedComplexity:
   Enabled: false
@@ -224,6 +223,4 @@ Style/MutableConstant:
 Style/Copyright:
   Enabled: false
 Layout/MultilineAssignmentLayout:
-  Enabled: false
-Metrics/CyclomaticComplexity:
   Enabled: false

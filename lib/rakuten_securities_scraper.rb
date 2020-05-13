@@ -11,7 +11,7 @@ module RakutenSecuritiesScraper
       }
     end
 
-    def todays_transaction
+    def todays_order
       driver = get_selenium_driver(:chrome)
       wait = Selenium::WebDriver::Wait.new(timeout: 100)
       url = "https://www.rakuten-sec.co.jp/ITS/V_ACT_Login.html"

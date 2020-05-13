@@ -17,7 +17,7 @@ RSpec.describe RakutenSecuritiesScraper do
   # end
 
   it "Get Today's Transaction" do
-    a1 = @a1.todays_transaction
+    a1 = @a1.todays_order
     expect(a1[0][:order_id].size).to eq 4
   end
 end

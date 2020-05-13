@@ -225,3 +225,5 @@ Style/Copyright:
   Enabled: false
 Layout/MultilineAssignmentLayout:
   Enabled: false
+Metrics/CyclomaticComplexity:
+  Enabled: false

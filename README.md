@@ -60,6 +60,9 @@ Or install it yourself as:
     ## Get All Trade History
     puts data.all_history
 
+    ## Get Today's Executed Order
+    puts data.todays_order
+
 ```
 
 ## Development

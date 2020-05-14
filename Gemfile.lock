@@ -1,7 +1,8 @@
 PATH
   remote: .
   specs:
-    rakuten_securities_scraper (0.1.2)
+    rakuten_securities_scraper (0.1.4)
+      selenium-webdriver (~> 3.142.7)
 
 GEM
   remote: https://rubygems.org/
@@ -50,6 +51,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bundler (~> 2.0)
   rake (~> 12.0)
   rakuten_securities_scraper!
   rspec (~> 3.0)

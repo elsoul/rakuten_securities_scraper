@@ -16,8 +16,14 @@ RSpec.describe RakutenSecuritiesScraper do
   #   expect(a1).to eq "no data"
   # end
 
-  it "Get Today's Transaction" do
-    a1 = @a1.todays_order
-    expect(a1[0][:order_id].size).to eq 4
+  # it "Get Today's Transaction" do
+  #   a1 = @a1.todays_order
+  #   expect(a1[0][:order_id].size).to eq 4
+  # end
+
+  it "Save Favorite List" do
+    codes = ["4755", "3853", "6580"]
+    a1 = @a1.favorite 3, codes
+    expect(a1[:status]).to eq "success"
   end
 end

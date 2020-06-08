@@ -11,6 +11,72 @@ module RakutenSecuritiesScraper
       }
     end
 
+    def login
+      driver = get_selenium_driver(:chrome)
+      url = "https://www.rakuten-sec.co.jp/ITS/V_ACT_Login.html"
+      driver.get url
+      driver.find_element(id: "form-login-id").send_keys @login[:login_id]
+      driver.find_element(id: "form-login-pass").send_keys @login[:login_pw]
+      driver.find_element(id: "login-btn").click
+      driver
+    end
+
+    def favorite num, codes
+      driver = login
+      sleep 2
+      driver.action.move_to(driver.find_element(id: "gmenu_domestic_stock")).perform
+      sleep 2
+      driver.find_element(id: "gmenu_domestic_stock").click
+      sleep 2
+      driver.find_element(link_text: "お気に入り銘柄").click
+      sleep 2
+      driver.find_element(link_text: num).click
+      sleep 2
+      driver.find_element(name: "editAnchor").click
+      sleep 2
+      driver.find_element(name: "addAnchor").click
+      sleep 1
+      driver.switch_to.frame driver.find_element(:id, "TB_iframeContent")
+      codes.each do |code|
+        result = click_favorite driver, code
+        next if result == "already exist"
+      end
+      driver.find_element(id: "prc_save_button1").click
+      { status: "success"}
+    end
+
+    def click_favorite driver, code
+      sleep 2
+      driver.find_element(name: "dscrCdNm").clear
+      driver.find_element(name: "dscrCdNm").send_keys code
+      driver.find_element(name: "dscrCdNm").send_keys(:enter)
+      sleep 2
+      rows = driver.find_elements(xpath: "//tr")
+      value = ""
+      num = 0
+      rows[3..rows.size-1].each_with_index do |f, i|
+        cells = f.find_elements(:css, "td").map { |a| a.text.strip.gsub(",", "") }
+        value = i if cells[1] == code and cells[3] == "東証"
+        num += 1
+      end
+      while value == ""
+        driver.find_element(xpath: "//*[@id='str-main-inner']/table/tbody/tr/td/table/tbody/tr/td/form/ul/li[2]/a").click
+        rows = driver.find_elements(xpath: "//tr")
+        rows[3..rows.size-1].each_with_index do |f, i|
+          cells = f.find_elements(:css, "td").map { |a| a.text.strip.gsub(",", "") }
+          value = i + num - 1 if cells[1] == code and cells[3] == "東証"
+        end
+      end
+      driver.find_element(xpath: "//*[@id='#{value}']").click
+      sleep 2
+      driver.find_element(xpath: "//*[@id='str-main-inner']/table/tbody/tr/td/table/tbody/tr/td/form/div[3]/ul/li/a/img").click
+      begin
+        return "already exist" if driver.find_element(xpath: "//*[@id='err_msg']").text.include? "すでに登録済みの銘柄が含まれています。"
+      rescue
+      end
+      driver
+    end
+
     def todays_order
       driver = get_selenium_driver(:chrome)
       wait = Selenium::WebDriver::Wait.new(timeout: 100)
@@ -35,7 +101,7 @@ module RakutenSecuritiesScraper
       sleep 2
       tables = driver.find_elements(xpath: "//tr")
       page_num = driver.find_element(class_name: "mtext").text.scan(/(.+)件中/)[0][0].to_i
-      row_nums = (21..(21 + (page_num * 3) -1)).to_a
+      row_nums = (21..(21 + (page_num * 3) - 1)).to_a
       records = []
       row_nums.each_slice(3).to_a.map do |col_num|
         detail = {}
@@ -128,7 +194,7 @@ module RakutenSecuritiesScraper
     def trade_table_data driver, page_num
       run_times = page_num.divmod(20)
       trade_records = []
-      (1..run_times[0]-1).each do |f|
+      (1..run_times[0] - 1).each do |f|
         rows = driver.find_elements(xpath: "//tr")
         rows[10..29].map do |row|
           cells = row.find_elements(:css, "td").map { |a| a.text.strip.gsub(",", "") }
@@ -163,7 +229,7 @@ module RakutenSecuritiesScraper
         return trade_records
       end
       rows = driver.find_elements(xpath: "//tr")
-      rows[10.."1#{run_times[1]}".to_i-1].map do |row|
+      rows[10.."1#{run_times[1]}".to_i - 1].map do |row|
         cells = row.find_elements(:css, "td").map { |a| a.text.strip.gsub(",", "") }
         trade_records << {
           bit_date: cells[0].split("\n")[0],

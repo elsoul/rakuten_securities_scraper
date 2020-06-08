@@ -63,6 +63,11 @@ Or install it yourself as:
     ## Get Today's Executed Order
     puts data.todays_order
 
+    ## Add favorite list
+    page_num : Integer 1..10
+    codes : Array ["4755", "4875",,,]
+    puts data.favorite page_num, codes
+
 ```
 
 ## Development

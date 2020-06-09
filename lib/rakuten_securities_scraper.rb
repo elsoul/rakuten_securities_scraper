@@ -42,7 +42,32 @@ module RakutenSecuritiesScraper
         next if result == "already exist"
       end
       driver.find_element(id: "prc_save_button1").click
-      { status: "success"}
+      { status: "success" }
+    end
+
+    def delete_favorite page_num
+      driver = login
+      sleep 2
+      driver.action.move_to(driver.find_element(id: "gmenu_domestic_stock")).perform
+      sleep 2
+      driver.find_element(id: "gmenu_domestic_stock").click
+      sleep 2
+      driver.find_element(link_text: "お気に入り銘柄").click
+      sleep 2
+      driver.find_element(link_text: page_num).click
+      sleep 2
+      driver.find_element(name: "editAnchor").click
+      sleep 2
+      table = driver.find_element(class_name: "tbl-data-01")
+      rows = table.find_elements(xpath: "//tr")
+      last_row = rows.size - 2
+      rows[2..last_row].each do |row|
+        driver.find_element(id: "line_delete_button_1").click
+        driver.switch_to.alert.accept
+        sleep 1
+      end
+      driver.find_element(id: "prc_save_button1").click
+      { status: "success" }
     end
 
     def click_favorite driver, code
@@ -54,7 +79,7 @@ module RakutenSecuritiesScraper
       rows = driver.find_elements(xpath: "//tr")
       value = ""
       num = 0
-      rows[3..rows.size-1].each_with_index do |f, i|
+      rows[3..rows.size - 1].each_with_index do |f, i|
         cells = f.find_elements(:css, "td").map { |a| a.text.strip.gsub(",", "") }
         value = i if cells[1] == code and cells[3] == "東証"
         num += 1
@@ -62,7 +87,7 @@ module RakutenSecuritiesScraper
       while value == ""
         driver.find_element(xpath: "//*[@id='str-main-inner']/table/tbody/tr/td/table/tbody/tr/td/form/ul/li[2]/a").click
         rows = driver.find_elements(xpath: "//tr")
-        rows[3..rows.size-1].each_with_index do |f, i|
+        rows[3..rows.size - 1].each_with_index do |f, i|
           cells = f.find_elements(:css, "td").map { |a| a.text.strip.gsub(",", "") }
           value = i + num - 1 if cells[1] == code and cells[3] == "東証"
         end
@@ -267,7 +292,7 @@ module RakutenSecuritiesScraper
         options.add_argument("--disable-popup-blocking")
         options.add_argument("--disable-translate")
         options.add_argument("-headless")
-        Selenium::WebDriver.for :chrome, options: options
+        Selenium::WebDriver.for :chrome # , options: options
       end
     end
   end

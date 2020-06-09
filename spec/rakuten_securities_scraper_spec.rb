@@ -21,9 +21,14 @@ RSpec.describe RakutenSecuritiesScraper do
   #   expect(a1[0][:order_id].size).to eq 4
   # end
 
-  it "Save Favorite List" do
-    codes = ["4755", "3853", "6580"]
-    a1 = @a1.favorite 3, codes
+  # it "Save Favorite List" do
+  #   codes = ["4755", "3853", "6580"]
+  #   a1 = @a1.favorite 3, codes
+  #   expect(a1[:status]).to eq "success"
+  # end
+
+  it "Delete Favorite List" do
+    a1 = @a1.delete_favorite 3
     expect(a1[:status]).to eq "success"
   end
 end

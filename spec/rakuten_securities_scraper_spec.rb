@@ -22,13 +22,13 @@ RSpec.describe RakutenSecuritiesScraper do
   # end
 
   # it "Save Favorite List" do
-  #   codes = ["4755", "3853", "6580"]
+  #   codes = [6098, 4661, 6178, 2413]
   #   a1 = @a1.favorite 3, codes
   #   expect(a1[:status]).to eq "success"
   # end
 
   it "Delete Favorite List" do
-    a1 = @a1.delete_favorite 3
+    a1 = @a1.delete_favorite 4
     expect(a1[:status]).to eq "success"
   end
 end

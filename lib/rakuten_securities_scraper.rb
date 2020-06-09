@@ -34,12 +34,13 @@ module RakutenSecuritiesScraper
       sleep 2
       driver.find_element(name: "editAnchor").click
       sleep 2
-      driver.find_element(name: "addAnchor").click
-      sleep 1
-      driver.switch_to.frame driver.find_element(:id, "TB_iframeContent")
       codes.each do |code|
-        result = click_favorite driver, code
-        next if result == "already exist"
+        driver.find_element(name: "addAnchor").click
+        sleep 1
+        driver.switch_to.frame driver.find_element(:id, "TB_iframeContent")
+        result = click_favorite driver, code.to_s
+        sleep 1
+        puts "hey" if result == "already exist"
       end
       driver.find_element(id: "prc_save_button1").click
       { status: "success" }
@@ -292,7 +293,7 @@ module RakutenSecuritiesScraper
         options.add_argument("--disable-popup-blocking")
         options.add_argument("--disable-translate")
         options.add_argument("-headless")
-        Selenium::WebDriver.for :chrome # , options: options
+        Selenium::WebDriver.for :chrome, options: options
       end
     end
   end

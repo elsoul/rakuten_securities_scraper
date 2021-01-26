@@ -1,13 +1,12 @@
 AllCops:
   EnabledByDefault: true
 
-##################### Style ##################################
-
-# redirect_to xxx and return のイディオムを維持したい
 Style/AndOr:
   Enabled: false
 
-# 日本語のコメントを許可する
+Style/ClassAndModuleChildren:
+  Enabled: false
+
 Style/AsciiComments:
   Enabled: false
 
@@ -36,19 +35,15 @@ Style/CollectionMethods:
     inject: "inject"
     reduce: "inject"
 
-# ドキュメントの無い public class を許可する
 Style/Documentation:
   Enabled: false
 
-# !! のイディオムは積極的に使う
 Style/DoubleNegation:
   Enabled: false
 
-# MethodDefParentheses:
-#   EnforcedStyle: require_no_parentheses
-  
-# メソッドチェーンの改行は末尾に . を入れる
-# REPL に貼り付けた際の暴発を防ぐため
+Lint/ConstantResolution:
+  Enabled: false
+
 Layout/DotPosition:
   EnforcedStyle: trailing
 
@@ -56,123 +51,89 @@ Layout/DotPosition:
 Layout/EmptyLineAfterGuardClause:
    Enabled: false
 
-# 明示的に else で nil を返すのは分かりやすいので許可する
 Style/EmptyElse:
   EnforcedStyle: empty
 
-# 桁揃えが綺麗にならないことが多いので migration は除外
 Layout/ExtraSpacing:
   Exclude:
     - "db/migrate/*.rb"
+    - "*.gemspec"
 
-# いずれかに揃えるのならば `sprintf` や `format` より String#% が好きです
 Style/FormatString:
   EnforcedStyle: percent
 
-# if 文の中に 3 行程度のブロックを書くぐらいは許容した方が現実的
+Style/MissingElse:
+  Enabled: false
+
+Style/StringHashKeys:
+  Exclude:
+    - "spec/queries/*.rb"
+    - "*.gemspec"
+
 Style/GuardClause:
   MinBodyLength: 5
 
-# rake タスクの順序の hash は rocket を許可する
 Style/HashSyntax:
   EnforcedStyle: ruby19
   Exclude:
     - "**/*.rake"
     - "Rakefile"
 
-# 条件式の方を意識させたい場合には後置の if/unless を使わない方が分かりやすい
 Style/IfUnlessModifier:
   Enabled: false
 
-# private/protected は一段深くインデントする
 Style/PreferredHashMethods:
   EnforcedStyle: short
 
-# scope 等は複数行でも lambda ではなく ->{} で揃えた方が見た目が綺麗
 Style/Lambda:
   Enabled: false
 
-# 1_000_000 と区切り文字が 2 個以上必要になる場合のみ _ 区切りを必須にする
 Style/NumericLiterals:
   MinDigits: 7
 
-# 正規表現にマッチさせた時の特殊変数の置き換えは Regex.last_match ではなく
-# 名前付きキャプチャを使って参照したいので auto-correct しない
 Style/PerlBackrefs:
   AutoCorrect: false
 
-# 特に model 内において、ローカル変数とメソッド呼び出しの区別をつけた方が分かりやすい場合が多い
 Style/RedundantSelf:
   Enabled: false
 
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-# 受け取り側で multiple assignment しろというのを明示
 Style/RedundantReturn:
   AllowMultipleReturnValues: true
 
-# spec 内は見た目が綺麗になるので許可
 Style/Semicolon:
   Exclude:
     - "spec/**/*"
 
-# fail と使い分ける必要ナシ
 Style/SignalException:
   EnforcedStyle: only_raise
 
 Style/MethodDefParentheses:
   Enabled: false
 
-# `||` も align に使うことがあるので追加する
-# Style/SpaceAroundOperators:
-#   MultiSpaceAllowedForOperators:
-#     - "="
-#     - "=>"
-#     - "||"
-
-# * 式展開したい場合に書き換えるのが面倒
-# * 文章ではダブルクォートよりもシングルクォートの方が頻出する
-# ことから EnforcedStyle: double_quotes 推奨
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 
-# auto-correct 時に Style/StringLiterals とカニバって無限ループになる (v0.28.0)
 Style/StringLiteralsInInterpolation:
   Enabled: false
 
-# いくらなんでも inject { |a, e| } は短すぎるので分かりやすい名前をつけたい
 Style/SingleLineBlockParams:
   Enabled: false
 
-# * migrate
-# * jbuilder
-# * model の association
-# * controller の callback
-# 辺りの桁揃えで引っかかるので全体的にチェックしない
-# Style/SingleSpaceBeforeFirstArg:
-#   Enabled: false
-
-
-##################### Lint ##################################
-
-# * 同名のメソッドがある場合にローカル変数に `_` を付ける
-# * 一時変数として `_` を付ける
-# というテクニックは頻出する
 Lint/UnderscorePrefixedVariableName:
   Enabled: false
 
-# 子クラスで実装させるつもりのメソッドで引っかかるので
 Lint/UnusedMethodArgument:
   Enabled: false
 
-##################### Metrics ##################################
 
 Metrics/AbcSize:
   Enabled: false
 
 Metrics/CyclomaticComplexity:
-  Enabled: false
+  Max: 10
 
 Metrics/PerceivedComplexity:
   Enabled: false
@@ -222,5 +183,15 @@ Style/MutableConstant:
   Enabled: false
 Style/Copyright:
   Enabled: false
+Style/MultilineTernaryOperator:
+  Enabled: false
 Layout/MultilineAssignmentLayout:
+  Enabled: false
+Style/Send:
+  Enabled: false
+Style/RedundantFileExtensionInRequire:
+  Enabled: false
+Style/ClassMethodsDefinitions:
+  Enabled: false
+Style/GlobalStdStream:
   Enabled: false

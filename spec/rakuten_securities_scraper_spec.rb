@@ -11,10 +11,11 @@ RSpec.describe RakutenSecuritiesScraper do
   #   expect(a1[0][:stocks].to_i).to be > 0
   # end
 
-  # it "Get Today's Trade History" do
-  #   a1 = @a1.todays_history
-  #   expect(a1).to eq "no data"
-  # end
+  it "Get Today's Trade History" do
+    a1 = @a1.todays_history
+    p a1
+    expect(a1).to eq "no data"
+  end
 
   # it "Get Today's Transaction" do
   #   a1 = @a1.todays_order
@@ -27,8 +28,8 @@ RSpec.describe RakutenSecuritiesScraper do
   #   expect(a1[:status]).to eq "success"
   # end
 
-  it "Delete Favorite List" do
-    a1 = @a1.delete_favorite 4
-    expect(a1[:status]).to eq "success"
-  end
+  # it "Delete Favorite List" do
+  #   a1 = @a1.delete_favorite 4
+  #   expect(a1[:status]).to eq "success"
+  # end
 end

@@ -1,8 +1,10 @@
 require "rakuten_securities_scraper/version"
 require "selenium-webdriver"
+require "dotenv/load"
 
 module RakutenSecuritiesScraper
   class Error < StandardError; end
+
   class RakutenScraper
     def initialize login_id, login_pw
       @login = {
@@ -164,29 +166,30 @@ module RakutenSecuritiesScraper
     end
 
     def all_history
-      driver = get_selenium_driver(:chrome)
+      @driver = get_selenium_driver(:chrome)
       wait = Selenium::WebDriver::Wait.new(timeout: 100)
       url = "https://www.rakuten-sec.co.jp/ITS/V_ACT_Login.html"
-      driver.get url
-      driver.find_element(id: "form-login-id").send_keys @login[:login_id]
-      driver.find_element(id: "form-login-pass").send_keys @login[:login_pw]
-      driver.find_element(id: "login-btn").click
-      wait.until { driver.find_element(id: "header-menu-button-asset") }
-      driver.action.move_to(driver.find_element(id: "header-menu-button-asset")).perform
-      wait.until { driver.find_element(xpath: "/html/body/div[2]/div/div/div[2]/ul[1]/li[1]/ul/li[1]/a") }
-      driver.find_element(xpath: "/html/body/div[2]/div/div/div[2]/ul[1]/li[1]/ul/li[1]/a").click
+      @driver.get url
+      @driver.find_element(id: "form-login-id").send_keys @login[:login_id]
+      @driver.find_element(id: "form-login-pass").send_keys @login[:login_pw]
+      @driver.find_element(id: "login-btn").click
+      wait.until { @driver.find_element(id: "header-menu-button-asset") }
+      @driver.action.move_to(@driver.find_element(id: "header-menu-button-asset")).perform
+      wait.until { @driver.find_element(xpath: "/html/body/div[2]/div/div/div[2]/ul[1]/li[1]/ul/li[1]/a") }
+      @driver.find_element(xpath: "/html/body/div[2]/div/div/div[2]/ul[1]/li[1]/ul/li[1]/a").click
 
       sleep 3
-      span_select = Selenium::WebDriver::Support::Select.new(driver.find_element(:id, "termCd"))
+      span_select = Selenium::WebDriver::Support::Select.new(@driver.find_element(:id, "termCd"))
       span_select.select_by(:value, "ALL")
 
-      driver.find_element(css: "input[type='image']").click
+      @driver.find_element(css: "input[type='image']").click
       sleep 2
-      rows = driver.find_elements(xpath: "//tr")
+      rows = @driver.find_elements(xpath: "//tr")
       page_num = rows[8].text.scan(/(.+)件中/)[0][0].to_i
-      trade_table_data driver, page_num
-    ensure
-      driver.quit
+      trade_table_data @driver, page_num
+    rescue StandardError => e
+      puts e
+      @driver.quit
     end
 
     def todays_history
@@ -197,7 +200,8 @@ module RakutenSecuritiesScraper
       driver.find_element(id: "form-login-id").send_keys @login[:login_id]
       driver.find_element(id: "form-login-pass").send_keys @login[:login_pw]
       driver.find_element(id: "login-btn").click
-      wait.until { driver.find_element(id: "header-menu-button-asset") }
+      sleep 2
+      # wait.until { driver.find_element(id: "header-menu-button-asset") }
       driver.action.move_to(driver.find_element(id: "header-menu-button-asset")).perform
       sleep 2
       wait.until { driver.find_element(xpath: "/html/body/div[2]/div/div/div[2]/ul[1]/li[1]/ul/li[1]/a") }
@@ -292,7 +296,7 @@ module RakutenSecuritiesScraper
         # options.add_argument("--ignore-certificate-errors")
         options.add_argument("--disable-popup-blocking")
         options.add_argument("--disable-translate")
-        options.add_argument("-headless")
+        # options.add_argument("-headless")
         Selenium::WebDriver.for :chrome, options: options
       end
     end
